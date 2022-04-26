@@ -92,6 +92,7 @@
 
                 const filetype_container = document.createElement('div');
                 filetype_container.classList.add('filetype');
+                filetype_container.classList.add('tooltiptext');
                 if(filetype){
                     filetype_container.textContent = filetype['encoding'];
                 }
@@ -102,6 +103,7 @@
 
                 const fulltitle_container = document.createElement('div');
                 fulltitle_container.classList.add('fulltitle');
+                fulltitle_container.classList.add('tooltip');
                 fulltitle_container.appendChild(filetype_container);
                 fulltitle_container.appendChild(title_container);
 
