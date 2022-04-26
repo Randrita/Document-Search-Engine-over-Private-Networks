@@ -29,7 +29,7 @@ def refresh_index():
 
     print("Directory indexing started...")
     search=SearchEngine("index.pkl")
-    search.create_new_index({'PATH':'/Users/andrew/Downloads'})
+    search.create_new_index({'PATH':'C://Users/Dell/Downloads'})
     print("Directory indexing completed...")
 
 refresh_index()

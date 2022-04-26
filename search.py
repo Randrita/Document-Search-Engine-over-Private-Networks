@@ -102,6 +102,16 @@ class SearchEngine:
         try:
             with open(path, 'rb') as f:
                 blob = f.read(N)
+        except Exception as ex:
+            return {
+                'file': tail,
+                'location': head,
+                'content': {
+                    'blob': None,
+                    'data': None
+                }
+            }
+        try:
             return {
                 'file': tail,
                 'location': head,
@@ -115,7 +125,10 @@ class SearchEngine:
             return {
                 'file': tail,
                 'location': head,
-                'content': None
+                'content': {
+                    'blob': smart_decoded(blob) if smartdecode else blob,
+                    'data': None
+                }
             }
 
 

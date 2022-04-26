@@ -35,7 +35,7 @@
         <select name="method">
             <option value="CONTAINS">Contains</option>
             <option value="ENDSWITH">Ends With</option>
-            <option value="STARTSWIDTH">Starts With</option>
+            <option value="STARTSWITH">Starts With</option>
         </select> <b>:</b>
         <input type="text" class="search" id="searchID" placeholder="Enter the file name">
         <a href="#result" id="searchBtn" onclick="search" class="btn">Search</a>
@@ -91,7 +91,7 @@
                         filetype = currentValue["content"]["data"]
                         blob = currentValue["content"]["blob"]
                         if((!(filetype instanceof Object)) && show_magicpython_alert){
-                            alert(filetype);
+                            // alert(filetype);
                             show_magicpython_alert = false;
                         }
                     }
