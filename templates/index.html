@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SearchX</title>
+
+    <!-- jQuery cdn link -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="static/style.css">
+
+</head>
+<body>
+
+<!-- header section starts  -->
+
+<header>
+        <a href="#" class="logo"><span>Search</span>X</a>
+</header>
+
+<!-- header section ends -->
+
+<!-- home section starts  -->
+
+<section class="home" id="home">
+
+    <div class="content">
+        <h3>Search<span>X</span></h3>
+        <p>A Search Engine Over Private Networks. An enterprise network document search engine</p>
+        <input type="text" id="searchID" placeholder="Enter the file name">
+        <a href="#result" id="searchBtn" onclick="search" class="btn">Search</a>
+    </div>
+
+    <div class="image">
+        <img src="static/images/home-img.png" alt="">
+    </div>
+
+</section>
+
+<!-- Results -->
+<!-- This is where the results will be shown -->
+<div class="container">
+    <div class="margin-auto" id="result">
+        <div class="row">
+            <div class="href">/Users/andrew/Downloads/ccso-report-template.docx</div>
+            <div class="title">Lorem Ipsum</div>
+            <div class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+        </div>
+    </div>
+</div>
+<!-- Results -->
+
+
+<!-- home section ends -->
+<!--Search detail section starts-->
+</body>
+<script type="text/javascript">
+    $('a#searchBtn').on('click', search);
+    show_magicpython_alert = true;
+    function search(){
+        term = $("input#searchID")[0].value;
+        $.ajax({
+            url: window.location.origin + "/search/" + term,
+            data: {}
+        }).done(function(data) {
+            container = $("div#result");
+            container[0].innerHTML = "";
+            // console.log(data);
+            data["result"].forEach(function(currentValue, index, arr){
+                content = currentValue["content"]
+                href = currentValue["location"] + "/" + currentValue["file"]
+                title = currentValue["file"]
+                blob = ""
+                filetype = ""
+                if(Object.keys(content).length > 0){
+                    filetype = currentValue["content"]["data"]
+                    blob = currentValue["content"]["blob"]
+                    if(filetype.includes("`python-magic` not found") && show_magicpython_alert){
+                        alert(filetype);
+                        show_magicpython_alert = false;
+                    }
+                }
+
+                const href_container = document.createElement('div');
+                href_container.classList.add('href');
+                if(filetype){
+                    const filetype_container = document.createElement('div');
+                    filetype_container.classList.add('filetype');
+                    filetype_container.textContent = href;
+                    href_container.appendChild(filetype_container)
+                }
+                href_container.textContent = href;
+
+                const title_container = document.createElement('div');
+                title_container.classList.add('title');
+                title_container.textContent = title;
+
+                const description_container = document.createElement('div');
+                description_container.classList.add('description');
+                if (blob == ""){
+                    description_container.classList.add('nodescription');
+                }
+                description_container.textContent = blob;
+
+                const row = document.createElement('div');
+                row.classList.add('row');
+                row.classList.add('padding-t-1');
+
+                row.appendChild(href_container)
+                row.appendChild(title_container)
+                row.appendChild(description_container)
+
+                container[0].appendChild(row);
+            });
+        });
+        return false;
+    }
+</script>
+
+</html>

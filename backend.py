@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, flash ,session,send_file
-import base64 
+import base64
 import json
 from search import SearchEngine
 
@@ -12,16 +12,26 @@ def index():
    return render_template('index.html')
 
 @app.route('/search/<term>',methods=['GET'])
-def search(term):
+def search_api(term):
     global search
     result, matches, records = search.search({'CONTAINS': True, 'TERM': term}, smartdecode=True)
     content = request.json
-    print(term)
+    result = {
+        "result": result,
+        "matches": matches,
+        "records": records
+    }
     return json.dumps(result), 200, {'content-type':'application/json'}
 
-if __name__ == '__main__':
+@app.route('/refresh',methods=['GET'])
+def refresh_index():
+    global search
+
     print("Directory indexing started...")
     search=SearchEngine("index.pkl")
-    search.create_new_index({'PATH':'C://Users/DELL/Downloads'})
+    search.create_new_index({'PATH':'/Users/andrew/Downloads'})
     print("Directory indexing completed...")
-    app.run(host= '127.0.0.1',debug=True)
+
+refresh_index()
+if __name__ == '__main__':
+    app.run(host= '127.0.0.1', debug=True, )
