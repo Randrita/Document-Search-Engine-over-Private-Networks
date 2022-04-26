@@ -298,10 +298,16 @@ header label{
     color: #8a8a8a;
 }
 .filetype{
+    display: inline;
 
+    margin-top: auto;
+    margin-bottom: auto;
 }
 .title{
     font-size: large;
+}
+.fulltitle{
+    display: flex;
 }
 .nodescription{
 

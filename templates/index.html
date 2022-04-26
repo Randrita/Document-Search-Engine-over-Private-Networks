@@ -80,7 +80,7 @@
                 if(Object.keys(content).length > 0){
                     filetype = currentValue["content"]["data"]
                     blob = currentValue["content"]["blob"]
-                    if(filetype.includes("`python-magic` not found") && show_magicpython_alert){
+                    if((!(filetype instanceof Object)) && show_magicpython_alert){
                         alert(filetype);
                         show_magicpython_alert = false;
                     }
@@ -88,17 +88,22 @@
 
                 const href_container = document.createElement('div');
                 href_container.classList.add('href');
-                if(filetype){
-                    const filetype_container = document.createElement('div');
-                    filetype_container.classList.add('filetype');
-                    filetype_container.textContent = href;
-                    href_container.appendChild(filetype_container)
-                }
                 href_container.textContent = href;
+
+                const filetype_container = document.createElement('div');
+                filetype_container.classList.add('filetype');
+                if(filetype){
+                    filetype_container.textContent = filetype['encoding'];
+                }
 
                 const title_container = document.createElement('div');
                 title_container.classList.add('title');
-                title_container.textContent = title;
+                title_container.textContent += title;
+
+                const fulltitle_container = document.createElement('div');
+                fulltitle_container.classList.add('fulltitle');
+                fulltitle_container.appendChild(filetype_container);
+                fulltitle_container.appendChild(title_container);
 
                 const description_container = document.createElement('div');
                 description_container.classList.add('description');
@@ -112,7 +117,7 @@
                 row.classList.add('padding-t-1');
 
                 row.appendChild(href_container)
-                row.appendChild(title_container)
+                row.appendChild(fulltitle_container)
                 row.appendChild(description_container)
 
                 container[0].appendChild(row);

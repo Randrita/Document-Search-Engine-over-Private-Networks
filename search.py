@@ -111,8 +111,12 @@ class SearchEngine:
                 },
             }
 
-        except:
-            return {}
+        except Exception as ex:
+            return {
+                'file': tail,
+                'location': head,
+                'content': None
+            }
 
 
     def content_aware(self, blob):
@@ -120,8 +124,8 @@ class SearchEngine:
             import magic
         except ImportError as ex:
             return 'Python Magic library `python-magic` not found. Follow the instructions from here: https://github.com/ahupp/python-magic to install `python-magic` and libpython.'
-        magicencoding = magic.Magic(mime_encoding=True)
-        encoding = magicencoding.from_buffer(blob)
+
+        encoding = magic.from_buffer(blob)
         magicraw = magic.Magic(raw=True)
         raw = magicraw.from_buffer(blob)
         return { 'encoding': encoding, 'type': raw }
