@@ -32,6 +32,11 @@
     <div class="content">
         <h3>Search<span>X</span></h3>
         <p>A Search Engine Over Private Networks. An enterprise network document search engine</p>
+        <select name="method">
+            <option value="CONTAINS">Contains</option>
+            <option value="ENDSWITH">Ends With</option>
+            <option value="STARTSWIDTH">Starts With</option>
+        </select> <b>:</b>
         <input type="text" class="search" id="searchID" placeholder="Enter the file name">
         <a href="#result" id="searchBtn" onclick="search" class="btn">Search</a>
     </div>
@@ -65,8 +70,9 @@
     show_magicpython_alert = true;
     function search(){
         term = $("input#searchID")[0].value;
+        method = $("select[name=method]")[0].value;
         $.ajax({
-            url: window.location.origin + "/search/" + term,
+            url: window.location.origin + "/search/" + method + "/" + term,
             data: {}
         }).done(function(data) {
             container = $("div#result");
@@ -80,12 +86,14 @@
                 title = currentValue["file"]
                 blob = ""
                 filetype = ""
-                if(Object.keys(content).length > 0){
-                    filetype = currentValue["content"]["data"]
-                    blob = currentValue["content"]["blob"]
-                    if((!(filetype instanceof Object)) && show_magicpython_alert){
-                        alert(filetype);
-                        show_magicpython_alert = false;
+                if(content != undefined){
+                    if(Object.keys(content).length > 0){
+                        filetype = currentValue["content"]["data"]
+                        blob = currentValue["content"]["blob"]
+                        if((!(filetype instanceof Object)) && show_magicpython_alert){
+                            alert(filetype);
+                            show_magicpython_alert = false;
+                        }
                     }
                 }
 

@@ -257,6 +257,16 @@ header label{
 
 }
 
+select{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: transparent;
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 5px;
+
+    margin-right: -15px;
+}
 .d-flex{
     display: flex;
 }

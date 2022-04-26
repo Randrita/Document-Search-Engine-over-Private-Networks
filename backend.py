@@ -11,10 +11,10 @@ app = Flask(__name__)
 def index():
    return render_template('index.html')
 
-@app.route('/search/<term>',methods=['GET'])
-def search_api(term):
+@app.route('/search/<method>/<term>',methods=['GET'])
+def search_api(method, term):
     global search
-    result, matches, records = search.search({'CONTAINS': True, 'TERM': term}, smartdecode=True)
+    result, matches, records = search.search({method: True, 'TERM': term}, smartdecode=True)
     content = request.json
     result = {
         "result": result,
