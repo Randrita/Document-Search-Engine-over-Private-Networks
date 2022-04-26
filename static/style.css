@@ -36,6 +36,13 @@ section{
     padding-bottom: 2rem;
 }
 
+input.search{
+    background: none;
+    border: 1px solid #999;
+    border-radius: 15px;
+    padding: 5px;
+}
+
 .btn{
     display: inline-block;
     margin-top: 1rem;
@@ -289,7 +296,7 @@ header label{
 
 
 .container{
-
+    width: 60vw;
 }
 .row{
     padding-top: 1rem;
