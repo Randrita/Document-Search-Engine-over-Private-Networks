@@ -44,7 +44,8 @@
 
 <!-- Results -->
 <!-- This is where the results will be shown -->
-<div class="container margin-l-auto margin-r-auto">
+<div class="container margin-l-auto margin-r-auto" id="resultcontainer" style="padding: 3rem;background: whitesmoke;">
+    <h1 style="padding-top: 3rem;text-align: center;font-stretch: expanded;font-weight: lighter;font-size: 50px;text-decoration: underline;text-decoration-thickness: 1px;">Search Results</h1>
     <div class="" id="result">
         <div class="row">
             <div class="href">/Users/andrew/Downloads/ccso-report-template.docx</div>
@@ -70,7 +71,9 @@
         }).done(function(data) {
             container = $("div#result");
             container[0].innerHTML = "";
-            // console.log(data);
+
+            window.location.hash = "#resultcontainer"
+
             data["result"].forEach(function(currentValue, index, arr){
                 content = currentValue["content"]
                 href = currentValue["location"] + "/" + currentValue["file"]
